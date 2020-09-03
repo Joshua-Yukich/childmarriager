@@ -1,0 +1,19 @@
+Package: childmarriager
+Type: Package
+Title: Child Marriage Projection Markov Models 
+Version: 0.0.0.9000
+Authors@R: person("Joshua", "Yukich", email = "jyukich@gmail.com", role = c("aut", "cre"))
+Maintainer: Joshua Yukich <jyukich@gmail.com>
+Description: This package builds on the infrastructure of the 'heemod' package to implement 
+    markov models to simulate, and summarize projections of cohorts of girl children exposed
+    to child marriage hazards and to summarize the impacts of various scenarios associated with 
+    the impact of COVID-19 on child marriage.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Imports:
+    heemod (>= 0.13.0),
+    rgho (>= 2.0.0),
+    tidyverse,
+    ggplot2
+RoxygenNote: 7.1.1
