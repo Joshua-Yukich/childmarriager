@@ -2,22 +2,21 @@
 #'
 #' @param start_year year of simulation start.
 #' @param end_year year of simulation end
-#' @param young_age lowest starting age in simulation in years
-#' @param old_age highest starting age in simulation in years
 #' @param state_names a vector of state names
 #' @param country three letter abbreviation of country WHO standard
 #' @param mar_prob a vector of marriage probabilities (equal in length to ncycles)
 #' @param impact a number
 #' @param sex sex for life table queries (0 = female) the default otherwise male
+#' @param pop_growth population growth rate as a proportion
+#' @param init_size population size for initial cohort
 
-model_runs <- function(start_year, end_year, young_age, old_age,
+model_runs <- function(start_year, end_year,
                           country, mar_prob, impact, sex = 0,
-                        state_names = c("Unmarried", "Married", "Dead")) {
+                        state_names = c("Unmarried", "Married", "Dead"), pop_growth, init_size) {
 require(heemod)
-  cohorts <- cohort_construct(start_year = start_year, end_year = end_year,
-                               young_age = young_age, old_age = old_age)
-  mar_haz_list <- mar_haz_define(start_year, end_year, young_age,
-                                 old_age, mar_prob)
+  cohorts <- cohort_construct(start_year = start_year, end_year = end_year)
+
+  mar_haz_list <- mar_haz_define(start_year = start_year, end_year = end_year, mar_prob = mar_prob)
 
 
 
@@ -28,7 +27,7 @@ require(heemod)
      mar_prob_int <- mar_haz_list[[i]]
 
     params <- define_parameters(
-      age_init = cohorts[["start_ages"]][i],
+      age_init = 0,
       sex = sex,
 
       # age increases with cycles
@@ -83,8 +82,8 @@ require(heemod)
       standard = strat_standard,
       np1      = strat_np1,
       parameters = params,
-      init = c(10000, 0, 0),
-      cycles = length(mar_haz_list[[i]]),
+      init = c(init_size*((1+pop_growth)^(i-1)), 0, 0),
+      cycles = cohorts[["end_year"]] - cohorts[["start_years"]][i],
       cost = cost,
       effect = utility
     )
