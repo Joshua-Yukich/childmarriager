@@ -1,5 +1,6 @@
 
 library(childmarriager)
+library(ggplot2)
 data("emp_haz_mal")
 prob_mar_comp <- prob_mar
 pad <- data.frame(child_age_years = seq(0,9, by =1), marrige_prob_perc = rep(0, times = 10))
