@@ -2,8 +2,7 @@
 #'
 #' @param start_year year of simulation start.
 #' @param end_year year of simulation end
-#' @param young_age lowest starting age in simulation in years
-#' @param old_age highest starting age in simulation in years
+
 
 
 cohort_construct <- function(start_year, end_year) {
