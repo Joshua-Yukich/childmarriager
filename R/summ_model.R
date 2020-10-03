@@ -18,7 +18,7 @@ summ_model <- function(x, type = c("cum_inc", "prevalence")) {
 
   if(type == "prevalence") {
   summ_x_2 <- x %>% filter(age >=20 & age <= 24) %>%
-    group_by(year) %>% summarize(pre_18 = sum(Married)/(sum(Unmarried) + sum(Married)))
+    group_by(year) %>% dplyr::summarize(pre_18 = sum(Married)/(sum(Unmarried) + sum(Married)))
 
   return(summ_x_2)
   } else {
